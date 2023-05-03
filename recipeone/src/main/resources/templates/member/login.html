@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+      xml:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
+
+
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
-  <style>
+    <style>
         .carousel-inner > .item {
             height: 350px;
         }
@@ -29,15 +32,40 @@
         .center{
             text-align:center;
         }
+
     </style>
 </th:block>
 
 <div layout:fragment="content">
 
-  <div>
-<!--      <a href="/ouath2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
-<!--      <a href="/ouath2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>-->
-<!--      <a href="/ouath2/authorization/kakao" class="btn btn-secondary active" role="button">Kakao Login</a>-->
+    <div>
+        로그인 페이지
+<!--        <a href="/ouath2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
+<!--        <a href="/ouath2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>-->
+<!--        <a href="/ouath2/authorization/kakao" class="btn btn-secondary active" role="button">Kakao Login</a>-->
+        <div>
+            <th:block th:if="${param.logout != null}">
+                <h1>Logout..........</h1>
+            </th:block>
+        <form action="/member/login" method="post" id="registerForm" th:if="${param.logout == null}">
+            <div>
+                <span>아이디</span>
+                <input type="text" name="username" placeholder="USER ID">
+            </div>
+            <div>
+                <span>패스워드</span>
+                <input type="text" name="password" placeholder="PASSWORD">
+            </div>
+            <div>
+                <input class="form-check-input" type="checkbox" name="remember-me">
+                <label class="form-check-label"> 자동 로그인</label>
+            </div>
+            <div class="float-end">
+                <button type="submit">LOGIN</button>
+            </div>
+
+        </form>
     </div>
 
+</div>
 </div>

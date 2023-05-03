@@ -9,10 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class MainController {
 
-    @PreAuthorize("hasRole('USE')")
     @GetMapping(value = "/")
     public String main(){
         return "main";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping(value = "/main2")
+    public String main2(){
+        return "main2";
     }
 
 
