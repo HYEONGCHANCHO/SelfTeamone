@@ -41,7 +41,7 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.rememberMe()
-                .key("12345678")
+                .key("12345678") //application properties에서 나중에 바꿔줄것
                 .tokenRepository(persistentTokenRepository())
                 .userDetailsService(userDetailService)
                 .tokenValiditySeconds(60*60*24*30);
@@ -56,7 +56,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
+    public PersistentTokenRepository persistentTokenRepository() { //rememberme db에 저장
         JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
         repo.setDataSource(dataSource);
         return repo;
