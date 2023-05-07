@@ -10,6 +10,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = "roleSet")
@@ -17,7 +18,8 @@ import java.util.Set;
 public class Member extends BaseEntity{
 
     @Id
-    private String user_id;
+    @Column(name = "Id")
+    private String Id;
 
     private String user_password;
 

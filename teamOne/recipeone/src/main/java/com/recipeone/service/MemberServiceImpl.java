@@ -21,27 +21,22 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void join(MemberJoinDTO memberJoinDTO) throws MidExistException {
-        log.info("여기까지 오긴하나");
-        String user_id = memberJoinDTO.getUser_id();
-        log.info("이건0");
-        boolean exist = memberRepository.existsById(user_id);
-        log.info("이건하나");
-        log.info("이건2" + exist);
-        log.info("이건3" + user_id);
+    public void join(MemberJoinDTO memberJoinDTO) throws MidExistException { //문제없는 코드
+        log.info("여기까지 오긴하나"); //문제없는 코드
+        String Id = memberJoinDTO.getId(); //문제없는 코드
 
-        if (exist) {
-            log.info("midexist 이거");
-            throw new MidExistException();
+        if (memberRepository.findById(Id).isPresent()) {//문제없는 코드
+            throw new MidExistException();//문제없는 코드
         }
-        Member member = modelMapper.map(memberJoinDTO, Member.class);
-        member.changePassword(passwordEncoder.encode(memberJoinDTO.getUser_password()));
-        member.addRole(MemberRole.USER);
-        log.info("이건0");
+
+        Member member = modelMapper.map(memberJoinDTO, Member.class); //문제없는 코드
 
 
-        memberRepository.save(member);
-//        log.info(member);
-//        log.info(member.getRoleSet());
+        member.changePassword(passwordEncoder.encode(memberJoinDTO.getUser_password())); //문제없는 코드
+        member.addRole(MemberRole.USER); //문제없는 코드
+        memberRepository.save(member); //문제없는 코드
+
+        log.info(member); //문제없는 코드
+        log.info(member.getRoleSet()); //문제없는 코드
     }
 }

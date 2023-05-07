@@ -1,12 +1,15 @@
 package com.recipeone.dto;
 
 import com.recipeone.entity.MemberRole;
-import lombok.Data;
+import lombok.*;
 
 @Data
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberJoinDTO {
 
-    private String user_id;
+    private String Id;
     private String user_password;
 
     private String user_num;

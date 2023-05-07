@@ -7,16 +7,16 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 public class MemberSecurityDTO extends User {
-    private String user_id;
+    private String Id;
     private String user_password;
     private MemberRole user_state;
     private boolean social;
 
-    public MemberSecurityDTO(String user_id, String user_password, boolean social, Collection<? extends GrantedAuthority> authorities){
-        super(user_id,user_password,authorities);
+    public MemberSecurityDTO(String Id, String user_password, boolean social, Collection<? extends GrantedAuthority> authorities){
+        super(Id,user_password,authorities);
 
         this.user_password=user_password;
-        this.user_id=user_id;
+        this.Id=Id;
         this.social=social;
 
     }

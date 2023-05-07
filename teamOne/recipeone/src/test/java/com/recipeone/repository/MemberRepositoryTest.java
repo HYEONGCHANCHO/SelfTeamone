@@ -25,7 +25,7 @@ class MemberRepositoryTest {
     public void insertMembers(){
         IntStream.rangeClosed(1,10).forEach(i -> {
             Member member = Member.builder()
-                    .user_id("member"+i)
+                    .Id("member"+i)
                     .user_password(passwordEncoder.encode("1111"))
                     .build();
             member.addRole(MemberRole.USER);

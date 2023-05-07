@@ -2,6 +2,7 @@ package com.recipeone.controller;
 
 import com.recipeone.dto.MemberJoinDTO;
 import com.recipeone.service.MemberService;
+import com.recipeone.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,40 +21,41 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/login") //그냥 /login으로 요청왔을 때
-    public void loginGet(String error, String logout){
+    public void loginGet(String error, String logout) {
         log.info("login get...........");
         log.info("log out:" + logout);
 
-        if (logout !=null){
+        if (logout != null) {
             log.info("user logout.........");
         }
     }
+
     @PostMapping("/login")
-    public String loginPost(){
-        return "redirect:/";
+    public String loginPost() {
+        return "redirect:/main2";
     }
 
     @GetMapping("/join") //그냥 /join으로 요청왔을 때
-    public void joinGET(){
+    public void joinGET() {
         log.info("join get...");
     }
 
     @PostMapping("/join") // 회원가입 폼 작성해서 내용 보낼 때
-    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
+    public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
         log.info("join post...");
         log.info(memberJoinDTO);
 
-        try{
+        try {
             memberService.join(memberJoinDTO); //MemberService의 join()메소드를 호출해서 회원가입 처리
             log.info("JOIN 단계1");
-        } catch (MemberService.MidExistException e){ //MemberService에서 MidExistException이 있을 경우(id가 중복되는 경우) error라는 속성에 user_id를 담아서 다시 /member/join경로로 redirect한다.
+        } catch (MemberServiceImpl.MidExistException e) { //MemberService에서 MidExistException이 있을 경우(id가 중복되는 경우) error라는 속성에 user_id를 담아서 다시 /member/join경로로 redirect한다.
             log.info("JOIN 단계2");
             redirectAttributes.addFlashAttribute("error", "user_id");
             return "redirect:/member/join";
         }
-        redirectAttributes.addFlashAttribute("result","success");
-            log.info("JOIN 단계3");
-         //정상적으로 회원가입이 되었을 경우 result라는 속성에 success라는 값을 담아서 /member/login 경로로 redirect한다.
+        redirectAttributes.addFlashAttribute("result", "success");
+        log.info("JOIN 단계3");
+        //정상적으로 회원가입이 되었을 경우 result라는 속성에 success라는 값을 담아서 /member/login 경로로 redirect한다.
         //Flash Attribute를 이용해서 한번의 요청에만 해당 속성값이 전달된다.
         return "redirect:/member/login";
 
