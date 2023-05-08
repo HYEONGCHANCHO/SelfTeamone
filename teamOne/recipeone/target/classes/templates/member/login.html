@@ -39,18 +39,25 @@
 <div layout:fragment="content">
 
     <div>
-        로그인 페이지
+
 <!--        <a href="/ouath2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
 <!--        <a href="/ouath2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>-->
 <!--        <a href="/ouath2/authorization/kakao" class="btn btn-secondary active" role="button">Kakao Login</a>-->
         <div>
             <th:block th:if="${param.logout != null}">
                 <h1>Logout..........</h1>
+                <li th:unless="${#request.isUserInRole('ROLE_USER')}">
+                    <a th:href="@{/member/login}">로그인</a>
+                </li>
+                <li th:unless="${#request.isUserInRole('ROLE_USER')}">
+                    <a th:href="@{/}">메인화면</a>
+                </li>
             </th:block>
         <form action="/member/login" method="post" id="registerForm" th:if="${param.logout == null}">
+            로그인 페이지
             <div>
                 <span>아이디</span>
-                <input type="text" name="Id" placeholder="Id">
+                <input type="text" name="username" placeholder="Id">
             </div>
             <div>
                 <span>패스워드</span>
@@ -63,7 +70,9 @@
             <div class="float-end">
                 <button type="submit">LOGIN</button>
             </div>
-
+            <li th:unless="${#request.isUserInRole('ROLE_USER')}">
+                <a th:href="@{/}">메인화면</a>
+            </li>
         </form>
     </div>
 

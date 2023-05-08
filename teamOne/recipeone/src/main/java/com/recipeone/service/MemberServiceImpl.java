@@ -23,20 +23,16 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void join(MemberJoinDTO memberJoinDTO) throws MidExistException { //문제없는 코드
         log.info("여기까지 오긴하나"); //문제없는 코드
-        String Id = memberJoinDTO.getId(); //문제없는 코드
+        String mid = memberJoinDTO.getMid(); //문제없는 코드
 
-        if (memberRepository.findById(Id).isPresent()) {//문제없는 코드
+        if (memberRepository.findById(mid).isPresent()) {//문제없는 코드
             throw new MidExistException();//문제없는 코드
         }
-
         Member member = modelMapper.map(memberJoinDTO, Member.class); //문제없는 코드
-
 
         member.changePassword(passwordEncoder.encode(memberJoinDTO.getUser_password())); //문제없는 코드
         member.addRole(MemberRole.USER); //문제없는 코드
         memberRepository.save(member); //문제없는 코드
-
-        log.info(member); //문제없는 코드
         log.info(member.getRoleSet()); //문제없는 코드
     }
 }

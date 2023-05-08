@@ -21,7 +21,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/login") //그냥 /login으로 요청왔을 때
-    public void loginGet(String error, String logout) {
+    public void loginGET(String error, String logout) {
         log.info("login get...........");
         log.info("log out:" + logout);
 
@@ -32,6 +32,8 @@ public class MemberController {
 
     @PostMapping("/login")
     public String loginPost() {
+        log.info("login 성공...........");
+
         return "redirect:/main2";
     }
 
@@ -50,7 +52,7 @@ public class MemberController {
             log.info("JOIN 단계1");
         } catch (MemberServiceImpl.MidExistException e) { //MemberService에서 MidExistException이 있을 경우(id가 중복되는 경우) error라는 속성에 user_id를 담아서 다시 /member/join경로로 redirect한다.
             log.info("JOIN 단계2");
-            redirectAttributes.addFlashAttribute("error", "user_id");
+            redirectAttributes.addFlashAttribute("error", "mid");
             return "redirect:/member/join";
         }
         redirectAttributes.addFlashAttribute("result", "success");

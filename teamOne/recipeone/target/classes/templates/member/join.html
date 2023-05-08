@@ -44,7 +44,7 @@
         <form action="/member/join" method="post" id="registerForm">
             <div class="input-group">
             <span>ID</span>
-                <input type="text" name="Id" class="form-control">
+                <input type="text" name="mid" class="form-control">
             </div>
             <div class="input-group">
                 <span>password</span>
@@ -56,36 +56,39 @@
             </div>
             <div class="input-group">
                 <span>name</span>
-                <input type="text" name="user_name" class="form-control">
+                <input type="text" name="user_fullname" class="form-control">
             </div>
-            <div class="input-group">
-                <span>num</span>
-                <input type="text" name="user_num" class="form-control">
-            </div>
+<!--            <div class="input-group">-->
+<!--                <span>num</span>-->
+<!--                <input type="text" name="user_num" class="form-control">-->
+<!--            </div>-->
             <div class="input-group">
                 <span>phone</span>
                 <input type="text" name="user_phone" class="form-control">
             </div>
-            <div class="input-group">
-                <span>state</span>
-                <input type="text" name="user_state" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>post</span>
-                <input type="text" name="user_post" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>lev</span>
-                <input type="text" name="user_lev" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>social</span>
-                <input type="text" name="user_social" class="form-control">
-            </div>
+<!--            <div class="input-group">-->
+<!--                <span>state</span>-->
+<!--                <input type="text" name="user_state" class="form-control">-->
+<!--            </div>-->
+<!--            <div class="input-group">-->
+<!--                <span>post</span>-->
+<!--                <input type="text" name="user_post" class="form-control">-->
+<!--            </div>-->
+<!--            <div class="input-group">-->
+<!--                <span>lev</span>-->
+<!--                <input type="text" name="user_lev" class="form-control">-->
+<!--            </div>-->
+<!--            <div class="input-group">-->
+<!--                <span>social</span>-->
+<!--                <input type="text" name="user_social" class="form-control">-->
+<!--            </div>-->
             <div class="float-end">
                 <button type="submit">submit</button>
                 <button type="reset">Reset</button>
             </div>
+            <li th:unless="${#request.isUserInRole('ROLE_USER')}">
+                <a th:href="@{/}">메인화면</a>
+            </li>
         </form>
     </div>
 

@@ -18,17 +18,16 @@ import java.util.Set;
 public class Member extends BaseEntity{
 
     @Id
-    @Column(name = "Id")
-    private String Id;
+    private String mid;
 
     private String user_password;
+    private String user_email;
 
+    private String user_fullname;
     private String user_num;
-    private String user_name;
     private String user_phone;
     private String user_addr;
-    private String user_email;
-    private MemberRole user_state;
+//    private String user_state="ACTIVE";
     private String user_post;
     private String user_lev;
     private boolean social;
@@ -40,11 +39,11 @@ public class Member extends BaseEntity{
     public void changePassword(String user_password){
         this.user_password = user_password;
     }
-    public void addRole(MemberRole user_state){
-        this.user_state = user_state;
-    }
     public void changeEmail(String user_email){
         this.user_email = user_email;
+    }
+    public void addRole(MemberRole memberRole){
+        this.roleSet.add(memberRole);
     }
     public void changeSocial(boolean social){
         this.social = social;
