@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
         }
         Member member = modelMapper.map(memberJoinDTO, Member.class); //문제없는 코드
 
-        member.changePassword(passwordEncoder.encode(memberJoinDTO.getUser_password())); //문제없는 코드
+        member.changePassword(passwordEncoder.encode(memberJoinDTO.getPassword())); //문제없는 코드
         member.addRole(MemberRole.USER); //문제없는 코드
         memberRepository.save(member); //문제없는 코드
         log.info(member.getRoleSet()); //문제없는 코드

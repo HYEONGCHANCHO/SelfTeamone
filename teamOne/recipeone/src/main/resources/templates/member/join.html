@@ -35,8 +35,8 @@
 
 <script layout:fragment="script" th:inline="javascript">
     const error = [[${error}]]
-    if(error && error === 'user_id'){
-        alert("동일한 user_id를 가진 계정이 존재합니다")
+    if(error && error === 'mid'){
+        alert("동일한 ID를 가진 계정이 존재합니다")
     }
 </script>
 <div layout:fragment="content">
@@ -48,40 +48,24 @@
             </div>
             <div class="input-group">
                 <span>password</span>
-                <input type="password" name="user_password" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>email</span>
-                <input type="email" name="user_email" class="form-control">
+                <input type="password" name="password" class="form-control">
             </div>
             <div class="input-group">
                 <span>name</span>
-                <input type="text" name="user_fullname" class="form-control">
+                <input type="text" name="userfullname" class="form-control">
             </div>
-<!--            <div class="input-group">-->
-<!--                <span>num</span>-->
-<!--                <input type="text" name="user_num" class="form-control">-->
-<!--            </div>-->
             <div class="input-group">
                 <span>phone</span>
-                <input type="text" name="user_phone" class="form-control">
+                <input type="text" name="userphone" class="form-control">
             </div>
-<!--            <div class="input-group">-->
-<!--                <span>state</span>-->
-<!--                <input type="text" name="user_state" class="form-control">-->
-<!--            </div>-->
-<!--            <div class="input-group">-->
-<!--                <span>post</span>-->
-<!--                <input type="text" name="user_post" class="form-control">-->
-<!--            </div>-->
-<!--            <div class="input-group">-->
-<!--                <span>lev</span>-->
-<!--                <input type="text" name="user_lev" class="form-control">-->
-<!--            </div>-->
-<!--            <div class="input-group">-->
-<!--                <span>social</span>-->
-<!--                <input type="text" name="user_social" class="form-control">-->
-<!--            </div>-->
+            <div class="input-group">
+                <span>email</span>
+                <input type="email" name="useremail" class="form-control">
+            </div>
+            <div class="input-group">
+                <span>addr</span>
+                <input type="text" name="useraddr" class="form-control">
+            </div>
             <div class="float-end">
                 <button type="submit">submit</button>
                 <button type="reset">Reset</button>

@@ -4,8 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
-
-
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
@@ -33,46 +31,85 @@
             text-align:center;
         }
 
+        /* 추가된 스타일 */
+        .login-form {
+            border: 1px solid black;
+            margin: 0 auto;
+            width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 2px solid #ddd;
+        }
+        .login-form button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .login-form button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .login-form a.btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-decoration: none;
+            display: block;
+        }
+        .login-form a.btn:hover {
+            background-color: #45a049;
+        }
     </style>
 </th:block>
 
 <div layout:fragment="content">
-
-    <div>
-
-<!--        <a href="/ouath2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
-<!--        <a href="/ouath2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>-->
-<!--        <a href="/ouath2/authorization/kakao" class="btn btn-secondary active" role="button">Kakao Login</a>-->
+    <div class="login-form">
+        <form action="/member/login" method="post">
+            <div>
+                <label for="username">아이디</label>
+                <input type="text" id="username" name="username" placeholder="아이디를 입력하세요">
+            </div>
+            <div>
+                <label for="password">패스워드</label>
+                <input type="password" id="password" name="password" placeholder="패스워드를 입력하세요">
+            </div>
+            <div>
+                <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me">
+                <label class="form-check-label" for="remember-me"> 로그인 상태유지</label>
+            </div>
+            <div>
+                <button type="submit">로그인</button>
+            </div>
+        </form>
         <div>
-            <th:block th:if="${param.logout != null}">
-                <h1>Logout..........</h1>
-                <li th:unless="${#request.isUserInRole('ROLE_USER')}">
-                    <a th:href="@{/member/login}">로그인</a>
-                </li>
-                <li th:unless="${#request.isUserInRole('ROLE_USER')}">
-                    <a th:href="@{/}">메인화면</a>
-                </li>
-            </th:block>
-        <form action="/member/login" method="post" id="registerForm" th:if="${param.logout == null}">
-            로그인 페이지
-            <div>
-                <span>아이디</span>
-                <input type="text" name="username" placeholder="Id">
-            </div>
-            <div>
-                <span>패스워드</span>
-                <input type="text" name="user_password" placeholder="PASSWORD">
-            </div>
-            <div>
-                <input class="form-check-input" type="checkbox" name="remember-me">
-                <label class="form-check-label"> 자동 로그인</label>
-            </div>
-            <div class="float-end">
-                <button type="submit">LOGIN</button>
-            </div>
-            <li th:unless="${#request.isUserInRole('ROLE_USER')}">
-                <a th:href="@{/}">메인화면</a>
-            </li>
+            <a href="/member/join" class="btn">회원가입</a>
+        </div>
+        <div>
+            <a href="/oauth2/authorization/kakao" class="btn">Kakao 로그인</a>
+        </div>
+        <div>
+            <a href="/oauth2/authorization/naver" class="btn">Naver 로그인</a>
+        </div>
+        <div>
+            <a href="/oauth2/authorization/google" class="btn">Google 로그인</a>
+        </div>
+
+
         </form>
     </div>
 

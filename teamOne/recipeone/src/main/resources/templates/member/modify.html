@@ -33,39 +33,18 @@
     </style>
 </th:block>
 
-<script layout:fragment="script" th:inline="javascript">
-    const error = [[${error}]]
-    if(error && error === 'mid'){
-        alert("동일한 ID를 가진 계정이 존재합니다")
-    }
-</script>
 <div layout:fragment="content">
     <div>
-        <form action="/member/join" method="post" id="registerForm">
+        <form action="/member/modify" method="post" id="registerForm">
             <div class="input-group">
             <span>ID</span>
                 <input type="text" name="mid" class="form-control">
             </div>
             <div class="input-group">
-                <span>password</span>
+                <span>바꿀password</span>
                 <input type="password" name="password" class="form-control">
             </div>
-            <div class="input-group">
-                <span>name</span>
-                <input type="text" name="userfullname" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>phone</span>
-                <input type="text" name="userphone" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>email</span>
-                <input type="email" name="useremail" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>addr</span>
-                <input type="text" name="useraddr" class="form-control">
-            </div>
+
             <div class="float-end">
                 <button type="submit">submit</button>
                 <button type="reset">Reset</button>

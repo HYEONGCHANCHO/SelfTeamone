@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Commit;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -26,8 +27,8 @@ class MemberRepositoryTest {
         IntStream.rangeClosed(1,10).forEach(i -> {
             Member member = Member.builder()
                     .mid("member"+i)
-                    .user_password(passwordEncoder.encode("1111"))
-                    .user_email("email"+i+"@aaa.bbb")
+                    .password(passwordEncoder.encode("1111"))
+                    .useremail("email"+i+"@aaa.bbb")
                     .build();
             member.addRole(MemberRole.USER);
 
@@ -46,6 +47,16 @@ class MemberRepositoryTest {
         log.info(member.getRoleSet());
 
         member.getRoleSet().forEach(memberRole -> log.info(memberRole.name()));
+    }
+
+    @Commit
+    @Test
+    public void testUpdate() {
+
+        String mid = "wjstktpghd2@naver.com"; //소셜 로그인으로 추가된 사용자로 현재 DB에 존재하는 이메일
+        String password =passwordEncoder.encode("54321");
+
+        memberRepository.updatePassword(password,mid);
     }
 
 

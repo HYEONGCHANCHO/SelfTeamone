@@ -2,6 +2,7 @@ package com.recipeone.config;
 
 import com.recipeone.security.CustomUserDetailService;
 import com.recipeone.security.handler.Custom403Handler;
+import com.recipeone.security.handler.CustomSocialLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -39,7 +41,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("-------------conofigure--------------");
 
-        http.formLogin().passwordParameter("user_password").loginPage("/member/login");
+        http.formLogin().loginPage("/member/login");
 
 
 
@@ -52,9 +54,12 @@ public class SecurityConfig {
                 .tokenValiditySeconds(60*60*24*30);
 
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+
+        http.oauth2Login().loginPage("/member/login").successHandler(authenticationSuccessHandler());
+
         return http.build();
     }
-    @Bean
+    @Bean //정적 메서드 시큐리티 제외
     public WebSecurityCustomizer webSecurityCustomizer(){
         log.info("-------------web conofigure--------------");
 
@@ -73,8 +78,14 @@ public class SecurityConfig {
         return new ModelMapper();
     }
 
-    @Bean
+    @Bean //권한 제한 될 때
     public AccessDeniedHandler accessDeniedHandler(){
         return new Custom403Handler();
     }
+
+    @Bean //소셜 로그인 성공
+    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+        return new CustomSocialLoginSuccessHandler(passwordEncoder());
+    }
+
 }
