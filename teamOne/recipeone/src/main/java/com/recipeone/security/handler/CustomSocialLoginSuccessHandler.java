@@ -32,8 +32,6 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
             log.info("Should Change Password");
             log.info("Redirect to Member Modify");
             response.sendRedirect("/member/modify");
-
-            return;
         }else {
             response.sendRedirect("/recipe/register");
         }

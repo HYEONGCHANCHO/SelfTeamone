@@ -20,20 +20,28 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
         </li>
-        <li class="nav-item ml-3">
-          <a class="nav-link" href="/members/register">회원가입</a>
+        <li class="nav-item ml-3"
+            th:unless="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
+          <a class="nav-link" th:href="@{/member/join}">회원가입</a>
+        </li>
+        <li class="nav-item"
+            th:unless="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
+          <a class="nav-link" th:href="@{/member/login}">로그인</a>
+        </li>
+        <li class="nav-item"
+            th:if="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
+          <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+        </li>
+        <li class="nav-item"
+            th:if="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
+          <a class="nav-link" href="/member/mypage">마이페이지</a>
+        </li>
+        <li class="nav-item"
+            th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+          <a class="nav-link" href="/member/admin">관리자페이지</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/members/login">로그인</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/members/logout">로그아웃</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/cart">마이페이지</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/admin/item/new">레시피 등록</a>
+          <a class="nav-link" href="/recipe/register">레시피 등록</a>
         </li>
       </ul>
     </div>

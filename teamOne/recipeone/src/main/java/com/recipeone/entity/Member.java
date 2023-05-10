@@ -21,15 +21,16 @@ public class Member extends BaseEntity{
     private String mid;
 
     private String password;
+//    private String Confirmedpassword;
     private String useremail;
 
     private String userfullname;
-    private String usernum;
     private String userphone;
     private String useraddr;
-    private String userpost;
-    private String userlev;
     private boolean social;
+    private long userlev;
+//    private String userpost;
+//    private Long usernum;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
@@ -40,6 +41,9 @@ public class Member extends BaseEntity{
     }
     public void changeEmail(String useremail){
         this.useremail = useremail;
+    }
+    public void addlev(long userlev){
+        this.userlev = userlev;
     }
     public void addRole(MemberRole memberRole){
         this.roleSet.add(memberRole);

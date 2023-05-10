@@ -36,22 +36,17 @@
 
     권한 없어도 보이는 메인 페이지
   <div>
-<!--      <a href="/ouath2/authorization/google" class="btn btn-success active" role="button">Google Login</a>-->
-<!--      <a href="/ouath2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>-->
-<!--      <a href="/ouath2/authorization/kakao" class="btn btn-secondary active" role="button">Kakao Login</a>-->
-    </div>
-<!--    <a href="/member/join">회원가입</a>-->
-<!--    <a href="/member/login">로그인</a>-->
 
     <ul class="nav navbar-nav navbar-right">
-        <li th:unless="${#request.isUserInRole('ROLE_USER')}">
+        <li th:unless="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
             <a th:href="@{/member/join}">회원가입</a>
         </li>
-        <li th:unless="${#request.isUserInRole('ROLE_USER')}">
+        <li th:unless="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
             <a th:href="@{/member/login}">로그인</a>
         </li>
-        <li th:if="${#request.isUserInRole('ROLE_USER')}">
+        <li th:if="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
             <a th:href="@{/logout}" >로그아웃</a>
         </li>
     </ul>
+</div>
 </div>

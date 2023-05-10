@@ -34,8 +34,8 @@
 </th:block>
 
 <script layout:fragment="script" th:inline="javascript">
-  const auth = [[${#authentication}]]
-  const auth2 = [[${#authentication.principal}]]
+  const auth = [[${#authentication.principal}]]
+  //auth는 현재 인증된 사용자 정보이다
   const errors = [[${#errors}]]
   console.log(errors)
 </script>

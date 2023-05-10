@@ -34,10 +34,10 @@
 </th:block>
 
 <script layout:fragment="script" th:inline="javascript">
-  const auth = [[${#authentication}]]
   const auth2 = [[${#authentication.principal}]]
   const errors = [[${#errors}]]
   console.log(errors)
+
 </script>
 
 <div layout:fragment="content">

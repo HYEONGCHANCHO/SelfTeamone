@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xml:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xml:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
@@ -37,7 +37,12 @@
     const error = [[${error}]]
     if(error && error === 'mid'){
         alert("동일한 ID를 가진 계정이 존재합니다")
-    }
+    }else if
+    (error && error === 'useremail'){
+        alert("동일한 이메일을 가진 계정이 존재합니다")
+         }else if
+    (error && error === 'confirmedPassword'){
+        alert("비밀번호 확인이 일치하지 않습니다.")}
 </script>
 <div layout:fragment="content">
     <div>
@@ -49,6 +54,10 @@
             <div class="input-group">
                 <span>password</span>
                 <input type="password" name="password" class="form-control">
+            </div>
+            <div class="input-group">
+                <span>confirmedpassword</span>
+                <input type="password" name="confirmedPassword" class="form-control">
             </div>
             <div class="input-group">
                 <span>name</span>

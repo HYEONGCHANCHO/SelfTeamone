@@ -1,8 +1,9 @@
 package com.recipeone.dto;
-import lombok.*;
+
+import lombok.Data;
 
 @Data
-public class MemberJoinDTO {
+public class MemberMofifyDTO {
 
     private String mid;
     private String password;

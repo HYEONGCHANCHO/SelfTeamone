@@ -45,13 +45,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             case "kakao":
                 useremail = getKakaoEmail(paramMap);
                 break;
-            case "google":
+            case "Google":
                 useremail = getGoogleEmail(paramMap);
                 break;
-            case "naver":
+            case "Naver":
+                log.info("여기1");
                 useremail = getNaverEmail(paramMap);
                 break;
         }
+        log.info("여기2");
         return generateDTO(useremail,paramMap);
     }
     private MemberSecurityDTO generateDTO(String useremail, Map<String,Object> params){
@@ -64,8 +66,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .password(passwordEncoder.encode("1111"))
                     .useremail(useremail)
                     .social(true)
+                    .userlev(1)
                     .build();
             member.addRole(MemberRole.USER);
+            log.info("여기3");
             memberRepository.save(member);
 
             //MemberSecurityDTO 구성 및 반환
@@ -85,6 +89,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                             member.getRoleSet()
                                     .stream().map(memberRole -> new SimpleGrantedAuthority("ROLE_"+memberRole.name())).collect(Collectors.toList())
                     ) ;
+            log.info("여기4");
             return memberSecurityDTO;
         }
     }
@@ -109,8 +114,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         log.info("NAVER-----------------------------------");
         Object value = paramMap.get("response");
         LinkedHashMap responseMap = (LinkedHashMap) value;
-        LinkedHashMap emailMap = (LinkedHashMap) responseMap.get("email");
-        String useremail = (String) emailMap.get("value");
+        String useremail = (String) responseMap.get("email");
         log.info("useremail..." + useremail);
         return useremail;
     }
