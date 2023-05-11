@@ -34,7 +34,7 @@
         </li>
         <li class="nav-item"
             th:if="${#request.isUserInRole('ROLE_USER')|| #request.isUserInRole('ROLE_ADMIN')|| #request.isUserInRole('ROLE_STOP')|| #request.isUserInRole('ROLE_CHEF')}">
-          <a class="nav-link" href="/member/mypage">마이페이지</a>
+          <a class="nav-link"  th:href="@{/member/mypage}">마이페이지</a>
         </li>
         <li class="nav-item"
             th:if="${#request.isUserInRole('ROLE_ADMIN')}">

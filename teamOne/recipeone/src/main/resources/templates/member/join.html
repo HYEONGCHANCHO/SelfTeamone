@@ -40,7 +40,10 @@
     }else if
     (error && error === 'useremail'){
         alert("동일한 이메일을 가진 계정이 존재합니다")
-         }else if
+    }else if
+    (error && error === 'usernickname'){
+        alert("동일한 닉네임을 가진 계정이 존재합니다")
+    }else if
     (error && error === 'confirmedPassword'){
         alert("비밀번호 확인이 일치하지 않습니다.")}
 </script>
@@ -62,6 +65,10 @@
             <div class="input-group">
                 <span>name</span>
                 <input type="text" name="userfullname" class="form-control">
+            </div>
+            <div class="input-group">
+                <span>nickname</span>
+                <input type="text" name="usernickname" class="form-control">
             </div>
             <div class="input-group">
                 <span>phone</span>

@@ -33,55 +33,40 @@
     </style>
 </th:block>
 
+
 <script layout:fragment="script" th:inline="javascript">
+  const auth2 = [[${#authentication.principal}]]
     const error = [[${error}]]
-    if(error && error === 'mid'){
-        alert("동일한 ID를 가진 계정이 존재합니다")
-    }else if
-    (error && error === 'useremail'){
-        alert("동일한 이메일을 가진 계정이 존재합니다")
-    }else if
-    (error && error === 'usernickname'){
-        alert("동일한 닉네임을 가진 계정이 존재합니다")
-    }else if
+if
     (error && error === 'confirmedPassword'){
         alert("비밀번호 확인이 일치하지 않습니다.")}
+       else if
+    (error && error === 'usernickname'){
+        alert("중복된 닉네임이 있습니다.")}
 </script>
 <div layout:fragment="content">
     <div>
-        <form action="/member/join" method="post" id="registerForm">
+        <form action="/member/socialmodify" method="post" id="registerForm">
             <div class="input-group">
-            <span>ID</span>
-                <input type="text" name="mid" class="form-control">
+            <span>아이디</span>
+                <input type="text" name="mid" class="form-control"  th:value="${#authentication.principal.username}" readonly>
+            </div>
+<!--            <div class="input-group">-->
+<!--                <input type="text" name="oldusernickname" class="form-control"  th:value="${#authentication.principal.usernickname}" readonly hidden="hidden">-->
+<!--            </div>-->
+            <div class="input-group">
+            <span>닉네임 설정</span>
+                <input type="text" name="usernickname" class="form-control"  th:value="${#authentication.principal.username}" >
             </div>
             <div class="input-group">
-                <span>password</span>
+                <span>패스워드 설정</span>
                 <input type="password" name="password" class="form-control">
             </div>
             <div class="input-group">
-                <span>confirmedpassword</span>
+                <span>패스워드 확인</span>
                 <input type="password" name="confirmedPassword" class="form-control">
             </div>
-            <div class="input-group">
-                <span>name</span>
-                <input type="text" name="userfullname" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>nickname</span>
-                <input type="text" name="usernickname" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>phone</span>
-                <input type="text" name="userphone" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>email</span>
-                <input type="email" name="useremail" class="form-control">
-            </div>
-            <div class="input-group">
-                <span>addr</span>
-                <input type="text" name="useraddr" class="form-control">
-            </div>
+
             <div class="float-end">
                 <button type="submit">submit</button>
                 <button type="reset">Reset</button>

@@ -21,8 +21,9 @@ public class Member extends BaseEntity{
     private String mid;
 
     private String password;
-//    private String Confirmedpassword;
     private String useremail;
+
+    private String usernickname;
 
     private String userfullname;
     private String userphone;
@@ -42,6 +43,7 @@ public class Member extends BaseEntity{
     public void changeEmail(String useremail){
         this.useremail = useremail;
     }
+
     public void addlev(long userlev){
         this.userlev = userlev;
     }

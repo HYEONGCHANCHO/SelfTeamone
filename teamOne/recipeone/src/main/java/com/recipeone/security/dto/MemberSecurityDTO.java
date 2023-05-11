@@ -18,18 +18,29 @@ public class MemberSecurityDTO extends User implements OAuth2User {
     private String mid;
     private String password;
     private String useremail;
+    private String usernickname;
+
     private boolean social;
+    private String userfullname;
+    private String userphone;
+    private String useraddr;
+    private long userlev;
 
     private Map<String , Object> props; //소셜 로그인 정보
 
-    public MemberSecurityDTO(String username, String password, String useremail, boolean social, Collection<? extends GrantedAuthority> authorities){
+    public MemberSecurityDTO(String username, String password, String useremail,  String usernickname, boolean social,String userfullname,
+                             String userphone,String useraddr, long userlev,Collection<? extends GrantedAuthority> authorities){
         super(username,password,authorities);
 
         this.mid=username;
         this.password=password;
         this.useremail=useremail;
+        this.usernickname=usernickname;
         this.social=social;
-
+        this.userfullname=userfullname;
+        this.userphone=userphone;
+        this.useraddr=useraddr;
+        this.userlev=userlev;
     }
 
     @Override

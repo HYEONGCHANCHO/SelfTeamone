@@ -65,6 +65,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .mid(useremail)
                     .password(passwordEncoder.encode("1111"))
                     .useremail(useremail)
+                    .usernickname(useremail)
                     .social(true)
                     .userlev(1)
                     .build();
@@ -73,7 +74,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             memberRepository.save(member);
 
             //MemberSecurityDTO 구성 및 반환
-            MemberSecurityDTO memberSecurityDTO = new MemberSecurityDTO(useremail,"1111",useremail,true, Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+            MemberSecurityDTO memberSecurityDTO = new MemberSecurityDTO(useremail,"1111",useremail,useremail,true, "","","",1,Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
             memberSecurityDTO.setProps(params);
 
             return memberSecurityDTO;
@@ -85,7 +86,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                             member.getMid(),
                             member.getPassword(),
                             member.getUseremail(),
+                            member.getUsernickname(),
                             member.isSocial(),
+                            member.getUserfullname(),
+                            member.getUserphone(),
+                            member.getUseraddr(),
+                            member.getUserlev(),
                             member.getRoleSet()
                                     .stream().map(memberRole -> new SimpleGrantedAuthority("ROLE_"+memberRole.name())).collect(Collectors.toList())
                     ) ;

@@ -4,6 +4,7 @@ import com.recipeone.dto.MemberJoinDTO;
 import com.recipeone.dto.MemberMofifyDTO;
 import com.recipeone.entity.Member;
 import com.recipeone.repository.MemberRepository;
+import com.recipeone.security.dto.MemberSecurityDTO;
 import com.recipeone.service.MemberService;
 import com.recipeone.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/member")
@@ -46,47 +49,86 @@ public class MemberController {
 
         return "redirect:/main2";
     }
-//    @PostMapping("/modify")
-//    public String modifyPost() {
-//        log.info("modify 성공...........");
-//        return "redirect:/main2";
-//    }
 
-    @PostMapping("/modify")
-    public String modifyPost(MemberMofifyDTO memberMofifyDTO, RedirectAttributes redirectAttributes, @ModelAttribute Member member) {
-//        log.info("modify 성공...........");
-        // 수정된 비밀번호와 mid 값을 이용해서 회원 정보 수정
-//        String mid = member.getMid(); //소셜 로그인으로 추가된 사용자로 현재 DB에 존재하는 이메일
-//        String password =passwordEncoder.encode(member.getPassword());
-//        memberRepository.updatePassword(password,mid);
-//        log.info(mid,password+"여기");
-//        return "redirect:/";
-        log.info("modify post...");
+    @PostMapping("/socialmodify")
+    public String socialmodifyPost(MemberMofifyDTO memberMofifyDTO, RedirectAttributes redirectAttributes, @ModelAttribute Member member) {
+        log.info("socialmodify post...");
         log.info(memberMofifyDTO);
         try {
-            memberService.modify(memberMofifyDTO, member); //MemberService의 join()메소드를 호출해서 회원가입 처리
+            memberService.socialmodify(memberMofifyDTO, member); //MemberService의 join()메소드를 호출해서 회원가입 처리
         } catch (MemberServiceImpl.MidExistException e) { //MemberService에서 MidExistException이 있을 경우(id가 중복되는 경우) error라는 속성에 mid를 담아서 다시 /member/join경로로 redirect한다.
             redirectAttributes.addFlashAttribute("error", "mid");
-            return "redirect:/member/modify";
+            return "redirect:/member/socialmodify";
         }catch (MemberService.UserEmailExistException e) {
             redirectAttributes.addFlashAttribute("error", "useremail");
-            return "redirect:/member/modify";
+            return "redirect:/member/socialmodify";
+        }catch (MemberService.UserNickNameExistException e) {
+            redirectAttributes.addFlashAttribute("error", "usernickname");
+            return "redirect:/member/socialmodify";
         } catch (MemberService.ConfirmedPasswordException e) {
             redirectAttributes.addFlashAttribute("error", "confirmedPassword");
-            return "redirect:/member/modify";
+            return "redirect:/member/socialmodify";
         }  redirectAttributes.addFlashAttribute("result", "success");
         return "redirect:/";
     }
 
-    @GetMapping("/modify")
+    @GetMapping("/socialmodify")
     public void modifyGET() {
         log.info("GET modify...........");
     }
+
+    @GetMapping("/membermodify")
+    public void membermodifyGET() {
+        log.info("GET membermodify...........");
+    }
+
+    @PostMapping("/membermodify")
+    public String membermodifyPost(MemberMofifyDTO memberMofifyDTO, RedirectAttributes redirectAttributes, @ModelAttribute Member member) {
+        log.info("membermodify post...");
+        log.info(memberMofifyDTO);
+        try {
+            memberService.membermodify(memberMofifyDTO, member);
+        }catch (MemberService.UserEmailExistException e) {
+            redirectAttributes.addFlashAttribute("error", "useremail");
+            return "redirect:/member/membermodify";
+        }catch (MemberService.UserNickNameExistException e) {
+            redirectAttributes.addFlashAttribute("error", "usernickname");
+            return "redirect:/member/membermodify";
+        }  redirectAttributes.addFlashAttribute("result", "success");
+        return "redirect:/member/mypage";
+    }
+  @GetMapping("/passwordmodify")
+    public void passwordmodifyGET() {
+        log.info("GET passwordmodify...........");
+    }
+
+  @PostMapping("/passwordmodify")
+  public String passwordmodifyPost(MemberMofifyDTO memberMofifyDTO, RedirectAttributes redirectAttributes, @ModelAttribute Member member) {
+      log.info("modify post...");
+      log.info(memberMofifyDTO);
+      try {
+          memberService.passwordmodify(memberMofifyDTO, member);
+      } catch (MemberService.WrongPasswordException e) {
+          redirectAttributes.addFlashAttribute("error", "WrongPassword");
+          return "redirect:/member/passwordmodify";
+      }catch (MemberService.ConfirmedmodifyPasswordException e) {
+          redirectAttributes.addFlashAttribute("error", "ConfirmedmodifyPassword");
+          return "redirect:/member/passwordmodify";
+      }  redirectAttributes.addFlashAttribute("result", "success");
+      return "redirect:/member/mypage";
+  }
+
 
     @GetMapping("/join") //그냥 /join으로 요청왔을 때
     public void joinGET() {
         log.info("join get...");
     }
+    @GetMapping("/mypage")
+    public void mypageGET() {
+        log.info("mypage get...");
+    }
+
+
 
     @PostMapping("/join") // 회원가입 폼 작성해서 내용 보낼 때
     public String joinPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
@@ -97,6 +139,9 @@ public class MemberController {
             memberService.join(memberJoinDTO); //MemberService의 join()메소드를 호출해서 회원가입 처리
         } catch (MemberServiceImpl.MidExistException e) { //MemberService에서 MidExistException이 있을 경우(id가 중복되는 경우) error라는 속성에 mid를 담아서 다시 /member/join경로로 redirect한다.
             redirectAttributes.addFlashAttribute("error", "mid");
+            return "redirect:/member/join";
+        } catch (MemberServiceImpl.UserNickNameExistException e) { //MemberService에서 MidExistException이 있을 경우(id가 중복되는 경우) error라는 속성에 mid를 담아서 다시 /member/join경로로 redirect한다.
+            redirectAttributes.addFlashAttribute("error", "usernickname");
             return "redirect:/member/join";
         }catch (MemberService.UserEmailExistException e) {
             redirectAttributes.addFlashAttribute("error", "useremail");

@@ -7,7 +7,10 @@ public class MemberMofifyDTO {
 
     private String mid;
     private String password;
+    private String oldinputpassword;
+    private String newpassword;
     private String confirmedPassword;
+    private String usernickname;
 
 //    private String usernum;
     private String userfullname;

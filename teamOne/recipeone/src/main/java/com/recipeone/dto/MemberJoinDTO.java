@@ -7,6 +7,7 @@ public class MemberJoinDTO {
     private String mid;
     private String password;
     private String confirmedPassword;
+    private String usernickname;
 
 //    private String usernum;
     private String userfullname;

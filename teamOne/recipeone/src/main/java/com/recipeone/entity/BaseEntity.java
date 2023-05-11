@@ -22,10 +22,13 @@ abstract class BaseEntity {
 
     @LastModifiedDate
     @Column(name = "moddate")
-    private LocalDateTime modDate;
+    private LocalDateTime moddate;
 
     @PrePersist
     public void setCreatedDateAndState() {
         this.regDate = LocalDateTime.now();
-    }
 }
+    public void setModdate(LocalDateTime moddate) {
+    this.moddate = moddate;
+}
+    }
