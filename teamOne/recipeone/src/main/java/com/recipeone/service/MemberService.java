@@ -26,5 +26,6 @@ public interface MemberService {
     void socialmodify(MemberMofifyDTO memberMofifyDTO, @ModelAttribute Member member) throws  MidExistException, UserNickNameExistException,UserEmailExistException,ConfirmedPasswordException ;
     void membermodify(MemberMofifyDTO memberMofifyDTO, @ModelAttribute Member member) throws  UserNickNameExistException,UserEmailExistException ;
     void passwordmodify(MemberMofifyDTO memberMofifyDTO, @ModelAttribute Member member) throws  ConfirmedmodifyPasswordException,WrongPasswordException ;
-
+    public boolean checkDuplicatedUsername(String username);
+    public boolean checkDuplicatedUsernickname(String usernickname) ;
 }

@@ -76,7 +76,9 @@
         }
     </style>
 </th:block>
+<script>
 
+</script>
 <div layout:fragment="content">
     <div class="login-form">
         <form action="/member/login" method="post">
@@ -94,6 +96,9 @@
             </div>
             <div>
                 <button type="submit">로그인</button>
+            </div>
+            <div>
+                <span id="remaining-attempts" th:text="${loginFailCount}"></span>번 시도 가능합니다.
             </div>
         </form>
         <div>

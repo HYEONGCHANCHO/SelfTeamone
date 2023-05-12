@@ -13,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member")
@@ -49,6 +49,7 @@ public class MemberController {
 
         return "redirect:/main2";
     }
+
 
     @PostMapping("/socialmodify")
     public String socialmodifyPost(MemberMofifyDTO memberMofifyDTO, RedirectAttributes redirectAttributes, @ModelAttribute Member member) {
@@ -154,6 +155,34 @@ public class MemberController {
         //정상적으로 회원가입이 되었을 경우 result라는 속성에 success라는 값을 담아서 /member/login 경로로 redirect한다.
         //Flash Attribute를 이용해서 한번의 요청에만 해당 속성값이 전달된다.
         return "redirect:/member/login";
-
     }
+    // 아이디 중복 확인
+    @PostMapping("/check-username")
+    @ResponseBody
+    public Map<String, String> checkUsername(@RequestParam String username) {
+        log.info("username여기로...");
+        Map<String, String> result = new HashMap<>();
+        boolean isDuplicated = memberService.checkDuplicatedUsername(username);
+        if (isDuplicated) {
+            result.put("result", "fail");
+        } else {
+            result.put("result", "success");
+        }
+        return result;
+    }
+
+    @PostMapping("/check-usernickname")
+    @ResponseBody
+    public Map<String, String> checkUsernickname(@RequestParam String usernickname) {
+        Map<String, String> result = new HashMap<>();
+        boolean isDuplicated = memberService.checkDuplicatedUsernickname(usernickname);
+        if (isDuplicated) {
+            result.put("result", "fail");
+        } else {
+            result.put("result", "success");
+        }
+        return result;
+    }
+
+
 }

@@ -51,6 +51,7 @@ public class MemberServiceImpl implements MemberService {
         member.changePassword(passwordEncoder.encode(memberJoinDTO.getPassword())); //문제없는 코드
         member.addRole(MemberRole.USER); //문제없는 코드
         member.addlev(1); //문제없는 코드
+        member.loginFailCount(0);
         memberRepository.save(member); //문제없는 코드
         log.info(member.getRoleSet()); //문제없는 코드
     }
@@ -148,4 +149,14 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.updatemoddate(moddate,mid);
     }
 
+
+    // 아이디 중복 확인
+    @Override
+    public boolean checkDuplicatedUsername(String username) {
+        return memberRepository.findById(username).isPresent();
+    }
+    @Override
+    public boolean checkDuplicatedUsernickname(String usernickname) {
+        return memberRepository.findByUserNickName(usernickname).isPresent();
+    }
 }

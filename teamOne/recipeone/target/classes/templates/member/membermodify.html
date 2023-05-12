@@ -30,6 +30,31 @@
         .center{
             text-align:center;
         }
+             .button-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button-container form {
+            margin: 0;
+        }
+
+        .button-container button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button-container button:hover {
+            background-color: #0062cc;
+        }
+    </style>
     </style>
 </th:block>
 
@@ -37,7 +62,7 @@
 
     마이페이지
     <form method="post" action="/member/membermodify">
-    <div>아이디
+    <div>회원 아이디
         <input type="text" name="mid" class="form-control"
                th:value="${#authentication.principal.username}" readonly>
     </div>
@@ -49,12 +74,18 @@
         <input type="text" name="userfullname" class="form-control"
                th:value="${#authentication.principal.userfullname}" >
     </div>
-    <div> 닉네임
+    <div>사용자 활동명
         <input type="text" name="usernickname" class="form-control"
+               minlength="2" maxlength="20" pattern="^[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣@]*$"
+               title="2~20자의 영문 대소문자, 한글, 숫자만 입력해주세요."
+               placeholder="2~20자의 영문 대소문자, 한글, 숫자만 입력해주세요."
                th:value="${#authentication.principal.usernickname}" >
     </div>
 <div> 전화 번호
         <input type="text" name="userphone" class="form-control"
+               pattern="^\d{3}-\d{3,4}-\d{4}$"
+               title="000-0000-0000 형식으로 입력해주세요."
+               placeholder="000-0000-0000 형식으로 입력해주세요."
                th:value="${#authentication.principal.userphone}" >
     </div>
 <div> 주소
@@ -62,13 +93,15 @@
                th:value="${#authentication.principal.useraddr}" >
     </div>
 
-        <button type="submit">회원정보 수정하기</button>
-    </form>
-    <form method="get" action="/member/passwordmodify">
-        <button type="submit">비밀 번호 수정</button>
-    </form>
-    <form method="get" action="/member/mypage">
-        <button type="submit">마이페이지</button>
-    </form>
-
+        <div class="button-container">
+            <form method="post" action="/member/membermodify">
+                <button type="submit">수정확인</button>
+            </form>
+            <form method="get" action="/member/passwordmodify">
+                <button type="submit">비밀번호 수정 페이지</button>
+            </form>
+            <form method="get" action="/member/mypage">
+                <button type="submit">마이페이지</button>
+            </form>
+        </div>
 </div>

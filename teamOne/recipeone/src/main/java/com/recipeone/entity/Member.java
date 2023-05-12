@@ -24,6 +24,7 @@ public class Member extends BaseEntity{
     private String useremail;
 
     private String usernickname;
+    private int loginFailCount;
 
     private String userfullname;
     private String userphone;
@@ -47,12 +48,17 @@ public class Member extends BaseEntity{
     public void addlev(long userlev){
         this.userlev = userlev;
     }
+    public void loginFailCount(int loginFailCount){
+        this.loginFailCount = loginFailCount;
+    }
     public void addRole(MemberRole memberRole){
         this.roleSet.add(memberRole);
     }
     public void changeSocial(boolean social){
         this.social = social;
     }
-
+    public void increaseLoginFailCount() {
+        this.loginFailCount++;
+    }
 
 }
